@@ -13,7 +13,7 @@ define variance::user() {
     shell      => $usershell ? {
       '0' => '/bin/bash',
       '1' => '/bin/ksh',
-      '3' => '/bin/nologin',
+      '2' => '/bin/nologin',
     }
   }
 
