@@ -2,7 +2,7 @@
 #
 # Parameters:
 #
-define variance::user() {
+define variance::user {
 
   $usershell = fqdn_rand(3)
 
