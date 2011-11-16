@@ -1,32 +1,37 @@
-# Actions: Creates a user, group and home directory. Users shell value comes from the fqdn_function to introduce variance.  
+# Define: variance::user
 #
-# Parameters:
+# Introduce random changes to some nodes to demonstrate variance in PE Console
+#
+# Actions: Creates a user, group and home directory. Users shell value comes from the fqdn_function to introduce variance.
 #
 define variance::user() {
 
-  $usershell = fqdn_rand(3)
+  $random_shell_choice = fqdn_rand(3)
+  $random_number       = fqdn_rand(3000,30)
+
+  $shell = $random_shell_choice ? {
+    '0' => '/bin/bash',
+    '1' => '/bin/ksh',
+    '2' => '/bin/sh',
+    '3' => '/bin/nologin',
+  }
 
   user { $name:
     ensure     => present,
     home       => "/home/${name}",
     managehome => true,
-    shell      => $usershell ? {
-      '0' => '/bin/bash',
-      '1' => '/bin/ksh',
-      '3' => '/bin/nologin',
-    }
+    shell      => $shell,
   }
 
   if ! defined ( Group[$name] ) {
     group { $name:
-      ensure  => $ensure,
+      ensure => $ensure,
       before => User[$name],
     }
   }
-  
-  $random_number = fqdn_rand(3000,30)
-  file { "/home/$name/hello.txt":
-    ensure => file,
+
+  file { "/home/${name}/hello.txt":
+    ensure  => file,
     content => "There are ${random_number} reasons to love Puppet!\n",
     require => User[$name],
   }

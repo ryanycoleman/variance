@@ -1,3 +1,6 @@
 include variance
 
-variance::user { ['ryan', 'web-user', 'db-user', 'admin-user']: }
+variance::user { ['ryan',
+                  'web-user',
+                  'db-user',
+                  'admin-user']: }
