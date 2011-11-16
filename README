@@ -1,0 +1,6 @@
+variance
+
+The variance module introduces arbitrary variance of certain puppet types amongst the nodes it's applied on. 
+
+For example:
+variance::user { 'ryan': } will create the ryan user on your nodes but will vary the users shell based on the fqdn_rand() function. 
