@@ -19,21 +19,26 @@ define variance::user {
   user { $name:
     ensure     => present,
     home       => "/home/${name}",
-    managehome => true,
     shell      => $shell,
   }
 
   if ! defined ( Group[$name] ) {
     group { $name:
       ensure => $ensure,
-      before => User[$name],
     }
   }
 
+  File {
+    owner => $name,
+    group => $name,
+    mode  => '0600',
+  }
+  file {"/home/${name}":
+    ensure => directory,
+  }
   file { "/home/${name}/hello.txt":
     ensure  => file,
     content => "There are ${random_number} reasons to love Puppet!\n",
-    require => User[$name],
   }
 
 }
