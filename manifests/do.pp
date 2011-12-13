@@ -1,4 +1,4 @@
-include variance
+class variance::do {
 
   variance::user { ['ryan',
                   'dan',
@@ -8,3 +8,5 @@ include variance
                   'sally',
                   'luke', ]:
   }
+
+}

@@ -6,14 +6,13 @@
 #
 define variance::user {
 
-  $random_shell_choice = fqdn_rand(3)
-  $random_number       = fqdn_rand(3000,30)
+  $random_shell_choice = fqdn_rand(4)
 
   $shell = $random_shell_choice ? {
     '0' => '/bin/bash',
     '1' => '/bin/ksh',
     '2' => '/bin/sh',
-    '3' => '/bin/nologin',
+    '3' => '/sbin/nologin',
   }
 
   user { $name:
@@ -26,19 +25,6 @@ define variance::user {
     group { $name:
       ensure => $ensure,
     }
-  }
-
-  File {
-    owner => $name,
-    group => $name,
-    mode  => '0600',
-  }
-  file {"/home/${name}":
-    ensure => directory,
-  }
-  file { "/home/${name}/hello.txt":
-    ensure  => file,
-    content => "There are ${random_number} reasons to love Puppet!\n",
   }
 
 }

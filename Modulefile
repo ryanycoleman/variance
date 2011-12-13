@@ -1,5 +1,5 @@
 name    'rcoleman-variance'
-version '0.0.1'
+version '0.0.4'
 source 'git://github.com/rcoleman/variance'
 author 'rcoleman'
 license 'Apache Version 2.0'

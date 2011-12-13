@@ -1,9 +1,15 @@
 class variance {
 
-# Example declaration of the defined resource type in users.pp to build these four users.
-# This allows you to just declare the variance class in your ENC. 
-  variance::user { ['ryan',
-                    'web-user',
-                    'db-user',
-                    'admin-user']: }
+  $random_number = fqdn_rand(3000,30)
+
+  File {
+    owner => root,
+    group => root,
+    mode  => '0600',
+  }
+  file { "/etc/motd":
+    ensure  => file,
+    content => "There are ${variance::random_number} reasons to love Puppet!\n\nWelcome to ${::fqdn} which has ${::memoryfree} of free memory.\n",
+  }
+
 }
